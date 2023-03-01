@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 3</title>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+<p>
+<!--    Вот наши товары:-->
+<!--    Product.instances = [];-->
+<!--    let cup = new Product("cup", 14, 5, "Tea cup with handle");-->
+<!--    let notebook = new Product("notebook", 35, 15, "lined notebook");-->
+<!--    let juice = new Product("juice", 8, 10, "Bottle with orange juice");-->
+<!--    let cupcake = new Product("cupcake", 22, 8, "Tasty cupcake");-->
+<!--    let shoes = new Product("shoes", 42, 5, "Nice pair of shoes");-->
+</p>
+
+<p>общий вид строки:<br>
+name-contains-cup&price-=2&quantity->5&description-ends-abc</p>
+
+<p>Проверяем строковые фильтры<br>
+первая проверка работы фильтров<br>
+name-contains-cup&description-contains-with</p>
+
+<p>проверим товары строкой:<br>
+name-starts-cu&description-contains-with&description-ends-e<br>
+Возможные кандидаты: cup, juice, cupcake<br>
+juice не подходит: в имени нет подстроки cup<br>
+cupcake не подходит: описание не заканчивается подстрокой e<br>
+Подходит только cup, имя начинается с под-строки cu, в описании есть подстрока with</p>
+
+<p>Начинаем проверки числовыми фильтрами:<br>
+проверим товары строкой:<br>
+name-starts-cu&description-contains-with&description-ends-e&price-<15<br>
+Возможные кандидаты: cup, juice, cupcake, shoes<br>
+К возможным вариантам добавился shoes, тк его цена 13, что меньше 15<br>
+Но подходит все-равно только cup, ведь: имя начинается с под-строки cu,<br>
+в описании есть подстрока with, а его цена 14, что меньше 15.</p>
+
+name-starts-cu&description-contains-with&description-ends-e&price-<15&quantity-<=5<br>
+description-ends-e&price-<15<br>
+quantity->=5&price-<15<br>
+quantity-<=5<br>
+quantity-=5<br>
+price-<15<br>
+price-=14<br>
+<script src="task_3.js">
+
+</script>
+
+<p>...После скрипта.</p>
+
+</body>
+
+</html>

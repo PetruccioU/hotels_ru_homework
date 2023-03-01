@@ -1,0 +1,50 @@
+'use strict'
+// Исключить обратные ссылки
+// важность: 5
+
+// В простых случаях циклических ссылок мы можем исключить свойство, из-за которого они
+// возникают, из сериализации по его имени.
+
+// Но иногда мы не можем использовать имя, так как могут быть и другие, нужные, свойства с
+// этим именем во вложенных объектах. Поэтому можно проверять свойство по значению.
+
+// Напишите функцию replacer для JSON-преобразования, которая удалит свойства, ссылающиеся
+// на meetup:
+
+let room = {
+   number: 23
+ //occupiedBy = meetup;
+};
+
+let meetup = {
+    title: "Совещание",
+    occupiedBy: [{name: "Иванов"}, {name: "Петров"}],
+    place: room
+    //self = meetup;
+};
+
+// цикличные ссылки
+room.occupiedBy = meetup;
+meetup.self = meetup;
+console.log('Сначала попробуем отфильтровать массивом со свойствами:'+ JSON.stringify(meetup, ['title','occupiedBy', 'name', 'number']) ); // 'occupiedBy',
+
+/*
+{
+  "title":"Conference",
+  "participants":[{"name":"John"},{"name":"Alice"}],
+  "place":{"number":23}
+}
+*/
+
+console.log(JSON.stringify(meetup, function replacer(key, value)
+{
+    return (key != "" && value == meetup) ? undefined : value;  //key == 'place' // key == 'occupiedBy'
+}));
+
+/* в результате должно быть:
+{
+  "title":"Совещание",
+  "occupiedBy":[{"name":"Иванов"},{"name":"Петров"}],
+  "place":{"number":23}
+}
+*/
