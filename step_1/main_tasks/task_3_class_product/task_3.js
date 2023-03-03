@@ -58,11 +58,19 @@ class Product {
 
         // создадим хранилище функций для числовых фильтров
         this.objFiltersNumeric = {
-            'price': {
-                'func': (e) => window.eval(e.price.toString() + this.oper.toString())
+            price: {
+                func: (e) => {
+                    let comparisonStr = e.price.toString() + this.oper.toString()
+                    const newFunction = new Function(`return ${comparisonStr}`);
+                    return newFunction() ;
+                }
             },
-            'quantity': {
-                'func': (e) => window.eval(e.quantity.toString() + this.oper.toString())
+            quantity: {
+                func: (e) => {
+                    let comparisonStr = e.quantity.toString() + this.oper.toString()
+                    const newFunction = new Function(`return ${comparisonStr}`);
+                    return newFunction() ;
+                }
             },
         };
 
@@ -132,20 +140,9 @@ class Product {
                             //alert(`Oper now:   ${(this.oper)}`)
                         } else this.oper = this.arrSecondFilter[1]
 
-
                         // фильтруем:
                         countStrFilters++
                         let arrItemName = Product.instances.filter(this.objFiltersNumeric[productFieldNumeric]['func']);
-
-                        // let arrItemName = Product.instances.filter(function (e)
-                        // {
-                        //     let f = new Function('e.price','this.oper', ' e.price + this.oper.toString()')
-                        //     // alert(f(e))
-                        //     return f(e.price,this.oper)
-                        //     //return e.price.toString() + this.oper.toString();
-                        // });
-
-                        //alert(JSON.stringify(arrItemName))
                         for(let element of arrItemName)
                         {
                             this.arrResultStringNotFiltered.push(JSON.stringify(element.name))
